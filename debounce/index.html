@@ -1,0 +1,63 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>debounce</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script>
+      //debounce 的实现 https://www.cnblogs.com/wilber2013/p/5893426.html
+      //1. 函数来通过一个闭包来维护一个timer
+      //2. 当同一个action的delay的时间间隔内再次触发 就清理timer 然后重置timer
+      //1) debounce
+       function xdy_debounce(action,delay){
+          var timer = null
+          return function() {
+            var that = this
+            var args = arguments
+            // console.log("asdfsda",args)
+            clearTimeout(timer)
+            timer = setTimeout(function(){
+              action.apply(that)
+            },delay)
+          }
+       }
+       
+       function resizeHandler() {
+         console.log("改变")
+       }
+      //  window.onresize = xdy_debounce(resizeHandler,500)
+
+
+      //2) throttle
+       function xdy_throttle(action, delay) {
+         var starttime = 0
+         return function() {
+           var curtime = +new Date()
+           var that = this
+           if(curtime-starttime>delay) {
+             action.apply(that)
+             starttime = curtime
+           }
+         }
+       }
+       function resizethrottleHandler() {
+         console.log("改变111")
+       }
+      //  window.onresize = xdy_throttle(resizethrottleHandler,1000)
+
+
+      //总结下
+      /*
+         debounce  场景 
+           键盘事件 用户输入比较频繁时候 可以合并事件
+           ajax请求时候 例如 当页面下拉超过一定返回就通过ajax请求新的页面内容 可以合并ajax请求
+         throttle
+           键盘事件 用户输入频繁时候 又必须在一定时间内执行处理函数 
+           打鼠标移动和窗口滚动 滚动带来大量的事件 但是又要在一定时间内必须看到页面效果
+      */
+    </script>
+  </body>
+</html>
