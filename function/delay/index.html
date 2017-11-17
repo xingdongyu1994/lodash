@@ -10,9 +10,16 @@
     <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
     <script>
       //lodash  _.delay(function,await,'test')
-      _.delay(function(text) {
-        console.log(text)
-      }, 1000, 'later')
+      // _.delay(function(text) {
+      //   console.log(text)
+      // }, 1000, 'later')
+      function xdy_delay(action, awiat){
+
+      }
+      function resizeHandler() {
+         console.log("改变")
+      }
+       window.onresize = xdy_delay(resizeHandler,500)
     </script>
   </body>
 </html>
