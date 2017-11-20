@@ -1,0 +1,39 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>compact</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+    //  _.compact(arr)
+    //  创建一个新数组并包含原数组中所有的非假值元素。例如 false、null、 0、""、undefined 和 NaN 都是“假值”。
+    // var arr=[0,1,false,'',3]
+    // console.log(_.compact(arr))
+    var arrdata = [0,1,2,false,'',4,'',5]
+    function xdy_compact(arr) {
+      if(arr == null) {
+          return arr
+      }
+      var resultarr = []
+      var addindex =0
+      var index = 0
+      var arrvalue
+      var length = arr.length
+      while(index<length) {
+        arrvalue = arr[index]
+        if(arrvalue) {
+          resultarr[addindex] = arrvalue
+          addindex++
+        }
+        index++
+      }
+      return resultarr
+    }
+    console.log("结果",xdy_compact(arrdata))
+    </script>
+  </body>
+</html>

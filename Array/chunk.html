@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>chunk</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+    // console.log("好",_.chunk(['a', 'b', 'c', 'd'], 2))
+    function xdy_chunk(arr,size){
+      var length = arr.length
+      if(!length) {
+        return []
+      }
+      var addIndex = 0
+      var start = 0
+      var resultarr = new Array(Math.ceil(length/size))
+      while(start<length){
+        resultarr[addIndex] = arr.slice(start,(start+=size))
+        addIndex++
+      }
+      return resultarr
+    }
+    console.log("结果",xdy_chunk(['a', 'b', 'c', 'd'],2))
+    </script>
+  </body>
+</html>
