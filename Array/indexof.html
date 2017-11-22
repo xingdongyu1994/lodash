@@ -1,0 +1,29 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>indeof</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+      var arr= [1,2,3,4]
+      function creteIndexofFinder(dir) {
+        return function (arr, item) {
+          var len = arr.length
+          var index = dir>0?0:len-1
+          for(;index>=0 && index<len; index+=dir) {
+            if(arr[index] == item) {
+              return index
+            }           
+          }
+          return -1
+        }
+      }
+      var xdy_indexof = creteIndexofFinder(-1)
+      console.log("结果",xdy_indexof(arr,2))
+    </script>
+  </body>
+</html>

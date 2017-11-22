@@ -1,0 +1,43 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>fill</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.fill(arr,value,[start=0],[end=arr.length])
+        // 要改变的arr数组  替换为value值  默认从0到最后  可以指定
+     var arrfill = [1,2,3,4]
+    //  console.log("lodash",_.fill(arrfill,'dd',2,2))
+     function xdy_fill(arr,value,start,end) {
+      var length = arr == null ?0: arr.length
+      if(!length) {
+        return []
+      }
+      if(typeof start !='number') {
+         start = 0
+      }
+      if(typeof end !='number') {
+         end = length
+      }
+      return xdy_bacefill(arr,value,start,end) 
+     }
+     function xdy_bacefill(arr,value,start,end) {
+        var length = arr.length
+        end = start>end? 0:length
+        while(start<end) {
+          arr[start] = value
+          start++
+        } 
+        return arr
+      }    
+     
+     console.log("lodash",xdy_fill(arrfill,'dd',2))
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>foreach</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.foreach 遍历
+        function foreach(arr, fun) {
+          for(var i=0; i<arr.length; i++){
+             fun(arr[i],i,arr)
+          }
+          return arr
+        }
+        var arreach = ['a','b','c','d']
+        foreach(arreach,function(item, index, arreach) {
+           console.log("弹出",item)
+        })
+        
+    </script>
+  </body>
+</html>

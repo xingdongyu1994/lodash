@@ -1,0 +1,40 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>findindex</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.findIndex(arr,[predicate=_.identity],[thisArg])
+        // 要查找的数组arr   数组遍历条件predicate可以是func\object\string   thisArg 对应predicate属性值   
+        // 返回的是符合条件的元素索引值 未找到则返回-1
+        var arrfinindex = [
+            { 'user': 'barney',  'active': false },
+            { 'user': 'fred',    'active': false },
+            { 'user': 'pebbles', 'active': true }
+        ]
+        // console.log("ff",_.findIndex(arrfinindex,function(item) {
+        //     return item.user == 'fred'
+        // }))
+        function xdy_findindex(arr,fn,addfindarg) {
+           for(var i=0; i<arr.length; i++) {
+            if(fn.call(addfindarg,arr[i],i,arr)) {
+                return i
+            }
+           }
+           return -1
+        }
+        console.log("结果",xdy_findindex(arrfinindex),function(item,i, xdy_findindex){
+             if(item.user == 'pebbles') {
+               return true
+             }
+        })
+        
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,51 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>size</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.size 长度
+        function xdy_size(arr) {
+          if(arr == null) {
+            return 0
+          } else {
+             if(isArray(arr)) {
+               return arr.length
+             } else {
+                return keys(arr).length
+             }
+          }
+          
+        }
+        function isArray(obj) {
+            return Object.prototype.toString.call(obj)=='[object Array]'
+        }
+        function keys(obj){
+        //    if(!isObject(obj)) {
+        //        return []
+        //    }
+           var keys = []
+           for(var key in obj) {
+             if(hasp(obj,key)) {
+                keys.push(key)
+             }
+           }
+           return keys
+        }
+        function isObject(obj) {
+           var  type = typeof obj
+           return type === 'function' || type === 'object' && !!obj;
+        }
+        function hasp(obj,key){
+           return obj!=null && hasOwnProperty.call(obj, key)
+        }
+        var arr ={'a':1,"b":2}
+        console.log("结果",xdy_size(arr))
+    </script>
+  </body>
+</html>

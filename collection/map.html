@@ -1,0 +1,28 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>map</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.map 返回新的映射的数组
+        var arrmap = [1,2,3]
+        function xdy_map (arr, fun) {
+          var length = arr.length
+          var res = Array(length)
+          for(var i=0; i<length; i++) {
+            res[i] = fun(arr[i],i,arr)
+          }
+          return res
+        }
+        var callback = function (a,index,arr) {
+           return a*2
+        }
+        console.log("结果",xdy_map(arrmap,callback))
+    </script>
+  </body>
+</html>

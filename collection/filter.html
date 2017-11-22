@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>filter</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+        //_.filter 返回新的过滤的数组
+        var arrfilter = [10,4,1,0,4]
+        function xdy_filter(arr,callback) {
+            var len = arr.length
+            var res = []
+            for(var i=0; i<len; i++) {
+               if(callback.call(null,arr[i],i,arr)) {
+                 res.push(arr[i])
+               }
+            }
+            return res
+        }
+        var callback = function(elemet,index,arr) {
+           return elemet>=2
+        }
+        console.log("结果",xdy_filter(arrfilter,callback))
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>drop</title>
+    <meta charset="utf-8">
+  </head>
+
+  <body>
+    <script src="https://cdn.bootcss.com/lodash.js/4.17.4/lodash.js"></script>
+    <script>
+    //  _.drop(arr,n)
+    // 数组去掉前n个元素 然后返回剩余部分
+    // console.log(_.drop([1,2,3,4],2))
+     var arrdrop = [1,2,3,4,5,6]
+     function xdy_drop(arr, n=1) {
+      var length = arr == null?0:arr.length
+      return length?arr.slice(n<0?0:n,length):[]
+     }
+     
+
+
+     function xdy_dropright(arr, n=1) {
+        var length = arr == null?0:arr.length
+        return length?arr.slice(n<0?length:length-n,length):[]
+     }
+     console.log("结果",xdy_dropright(arrdrop,2))
+    </script>
+  </body>
+</html>
