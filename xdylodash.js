@@ -8,6 +8,8 @@ function xdy_keys(obj) {
     }
     return arrkey
  }
+ //baseCreate  对象创建的处理
+ 
 
  //判断 是否有键值
  function xdy_has(obj, key) {
@@ -279,12 +281,24 @@ function xdy_flatten(arr, shallow) {
 }
 //difference  过滤掉元素   标签数组
 function xdy_difference(obj,parm){
-    var rest = xdy_flatten(parm,true)
+  var rest = xdy_flatten(parm,true)
    return xdy_filter(obj,function(value) {
       return !xdy_contains(rest,value)
    })
+}
+//without  标签数组 过滤数组  跟difference不同之处不改变原数组
+function xdy_whithout() {
 
 }
+
+
+// bind   标签函数
+// function xdy_bind(func,context) {
+//   if(!xdy_function(func)) {
+//     throw new TypeError('Bind must be called on a function');
+//   } 
+
+// }
 var obj = {
     'barney':  { 'age': 36, 'active': true },
     'fred':    { 'age': 40, 'active': false },
