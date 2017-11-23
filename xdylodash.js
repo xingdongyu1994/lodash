@@ -1,3 +1,4 @@
+var Ctor = function() {}
 //keys
 function xdy_keys(obj) {
     var  arrkey = []
@@ -8,8 +9,22 @@ function xdy_keys(obj) {
     }
     return arrkey
  }
+ //now 时间
+ function xdy_now(){
+   return new Date().getTime()
+ }
  //baseCreate  对象创建的处理
- 
+ function xdy_basecreate(prototype) {
+   if(!xdy_object(prototype)){
+     return {}
+   }
+   //赋值给ctor原型
+   Ctor.prototype = prototype
+   //创建实例
+   var result = new Ctor
+   Ctor.prototype = null
+   return result
+ } 
 
  //判断 是否有键值
  function xdy_has(obj, key) {
@@ -293,18 +308,86 @@ function xdy_whithout() {
 
 
 // bind   标签函数
-// function xdy_bind(func,context) {
-//   if(!xdy_function(func)) {
-//     throw new TypeError('Bind must be called on a function');
-//   } 
+function executeBound(sourceFunc, boundFunc, context, callingContext, args) {
+  if(!(callingContext instanceof boundFunc)) {
+    return sourceFunc.apply(context,args)
+  }
+  //处理new 调用形式
+  var self = xdy_basecreate(sourceFunc.prototype)
+  var result = sourceFunc.apply(self,args) 
+  if(xdy_object(result)) {
+    return result
+  }
+  return self
+}
+function xdy_bind(func,context) {
+  if(!xdy_function(func)) {
+    throw new TypeError('Bind must be called on a function');
+  } 
+  var args = Array.prototype.slice.call(arguments,2)
+  var bound = function() {
+    return  executeBound(func,bound,context,this,args.concat(Array.prototype.slice.call(arguments)))
+  }
+  return bound
+}
+//delay 延迟函数  标签函数
+function xdy_delay(func, wait) {
+  var args = Array.prototype.slice.call(arguments,2)
+  return setTimeout(function(){
+    return func.apply(null,args)
+  },wait)
+}
+//debounce   标签函数
+function xdy_debounce (func,delay) {
+  //维护一个timer
+  //这里出现一个问题 就是高频发时候 要取消掉前一次超时调用 导致不能处理程序不能触发
+  var  timer=null
+  return function() {
+    var context = this
+    var args = arguments
+    clearTimeout(timer)
+    timer = xdy_delay(function(){
+      func.apply(context,args)
+    },delay)
+  }
+}
+function xdy_debounce2 (func,delay,immediate) {
+  //维护一个timer
+  //这里出现一个问题 就是高频发时候 要取消掉前一次超时调用 导致不能处理程序不能触发
+  var  timer=null
+  return function() {
+    var context = this
+    var args = arguments
+    if(timer) {
+     clearTimeout(timer)
+    }
+    if(immediate) {
+      var dotime = !timer
+      timer = setTimeout(function(){
+         timer = null
+      },delay)
+      if(dotime) {
+        func.apply(context,args)
+      }
+    } else {
+      timer = xdy_delay(function(){
+        func.apply(context,args)
+      },delay)
+    }
+  }
+}
 
-// }
+//节流throttle  标签函数
 var obj = {
     'barney':  { 'age': 36, 'active': true },
     'fred':    { 'age': 40, 'active': false },
     'pebbles': { 'age': 1,  'active': true }
   };
 var arr = [1,2,3,3,3,4,5]
-console.log("原始",arr)
-
-console.log("结果",xdy_difference(arr,[2,3]))
+function resizethrottleHandler() {
+  console.log("改变")
+}
+var objs = {'name':'xingdongyu'}
+// var aaa = xdy_bind(xdy,objs)
+window.onresize = xdy_debounce2(resizethrottleHandler,3000,true)
+console.log("结果2222222",objs.__proto__)
