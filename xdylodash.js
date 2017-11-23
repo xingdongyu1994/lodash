@@ -378,6 +378,31 @@ function xdy_debounce2 (func,delay,immediate) {
 }
 
 //节流throttle  标签函数
+function xdy_throttle (func,delay) {
+  var per = xdy_now()
+  return function()  {
+    var context = this
+    var args = arguments
+    var now = xdy_now()
+    if(now-per >= delay) {
+      func.apply(context,args)
+      per = xdy_now()
+    }
+  }
+}
+function xdy_throttle2(func,delay) {
+  var timer = null
+  return function() {
+    var context = this
+    var args = arguments
+    if(!timer) {
+      timer = setTimeout(function(){
+        func.apply(context,args)
+         timer =null
+       },delay)
+    }
+  }
+}
 var obj = {
     'barney':  { 'age': 36, 'active': true },
     'fred':    { 'age': 40, 'active': false },
@@ -389,5 +414,5 @@ function resizethrottleHandler() {
 }
 var objs = {'name':'xingdongyu'}
 // var aaa = xdy_bind(xdy,objs)
-window.onresize = xdy_debounce2(resizethrottleHandler,3000,true)
+window.onresize = xdy_throttle2(resizethrottleHandler,2000,true)
 console.log("结果2222222",objs.__proto__)
