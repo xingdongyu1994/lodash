@@ -21,6 +21,14 @@ function xdy_keys(obj) {
    }
    return keys
  }
+ function xdy_getlength (obj) {
+   return obj == null ? void 0 : obj['length']
+ }
+ //判断是否为类数组
+ function isarrarlike(obj) {
+   let length = xdy_getlength(obj)
+   return typeof length =='number'&& length >= 0 
+ }
  //now 时间
  function xdy_now(){
    return new Date().getTime()
@@ -54,6 +62,26 @@ function xdy_keys(obj) {
  //判断 是否是数组
  function xdy_array(obj) {
     return Object.prototype.toString.call(obj) == '[object Array]'
+ }
+ //判断是否有arguments
+ function xdy_arguments(obj) {
+    return Object.prototype.toString.call(obj) == '[object Arguments]'
+ }
+ //判断是为isboolean
+ function xdy_isboolean(obj) {
+    return obj ===true || obj === false || Object.prototype.toString.call(obj) == '[object Boolean]'
+ }
+ //判断是否为NaN
+ function xdy_isnan(obj) {
+   return obj !==obj
+ }
+ //判断是否为undefined
+ function xdy_undefined(obj) {
+   return obj === void 0
+ }
+ //isstring 是否为字符串  标签对象
+ function xdy_isstring(obj) {
+    return Object.prototype.toString.call(obj) == '[object String]'
  }
  //返回 本身
  function xdy_identity(value) {
@@ -450,6 +478,26 @@ function xdy_clone (obj) {
   return xdy_array(obj)?obj.slice(): xdy_assign({},obj)
 }
 
+
+
+//isempty  检查是否为空  标签对象
+function xdy_isempty(obj) {
+  if(!xdy_object(obj)) {
+    return obj
+  }
+  //如果是字符串检查是否为0
+  if(xdy_array(obj) || xdy_isstring(obj)) {
+    return obj.length ===0
+  }
+  //检查对象
+  for(var key in obj) {
+    if(xdy_has(obj, key)) {
+      return false
+    }
+  }
+  return true
+}
+
 var obj = {"name":undefined,"age":[1,2,3]}
 var obj2 = {"addres":"handan","name":"xiaobai"}
 var arr = [1,2,3,3,3,4,5]
@@ -459,7 +507,7 @@ function resizethrottleHandler() {
 // var objs = {'name':'xingdongyu'}
 // var aaa = xdy_bind(xdy,objs)
 // window.onresize = xdy_throttle2(resizethrottleHandler,2000,true)
-var aa = xdy_clone(obj)
-console.log("结果",aa)
-obj['age']=122
-console.log("发大水",obj)
+// var aa = xdy_clone(obj)
+console.log("结果",xdy_isempty([1]))
+// obj['age']=122
+// console.log("发大水",obj)
