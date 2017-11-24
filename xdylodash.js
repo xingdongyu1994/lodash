@@ -9,6 +9,18 @@ function xdy_keys(obj) {
     }
     return arrkey
  }
+ //allkeys  对象所有包括继承属性名称 标签对象
+ function xdy_allkeys(obj) {
+   var keys= []
+   if(!xdy_object(obj)){
+     return []
+   } else {
+     for(var key in obj) {
+       keys.push(key)
+     }
+   }
+   return keys
+ }
  //now 时间
  function xdy_now(){
    return new Date().getTime()
@@ -403,16 +415,51 @@ function xdy_throttle2(func,delay) {
     }
   }
 }
-var obj = {
-    'barney':  { 'age': 36, 'active': true },
-    'fred':    { 'age': 40, 'active': false },
-    'pebbles': { 'age': 1,  'active': true }
-  };
+
+
+
+//extend 拷贝   标签对象
+function createassign(keysfunc,undefinedOnly) {
+   return function(obj){
+     var length = arguments.length
+     if(length<2|| obj== null) {
+        return obj
+     }
+     for(var index =1; index<length; index++) {
+        var source = arguments[index]
+        var keys = keysfunc(source)
+        var l = keys.length
+        for(var i=0; i<l; i++) {
+          var key = keys[i]
+          if(!undefinedOnly || obj[key] === void 0) {
+            obj[key] = source[key] 
+          }
+          
+        }
+     }
+     return obj
+   }
+}
+var xdy_assign = createassign(xdy_keys,true)
+
+//clone  
+function xdy_clone (obj) {
+  if(!xdy_object(obj)) {
+    return obj
+  }
+  return xdy_array(obj)?obj.slice(): xdy_assign({},obj)
+}
+
+var obj = {"name":undefined,"age":[1,2,3]}
+var obj2 = {"addres":"handan","name":"xiaobai"}
 var arr = [1,2,3,3,3,4,5]
 function resizethrottleHandler() {
   console.log("改变")
 }
-var objs = {'name':'xingdongyu'}
+// var objs = {'name':'xingdongyu'}
 // var aaa = xdy_bind(xdy,objs)
-window.onresize = xdy_throttle2(resizethrottleHandler,2000,true)
-console.log("结果2222222",objs.__proto__)
+// window.onresize = xdy_throttle2(resizethrottleHandler,2000,true)
+var aa = xdy_clone(obj)
+console.log("结果",aa)
+obj['age']=122
+console.log("发大水",obj)
