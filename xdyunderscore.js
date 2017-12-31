@@ -498,16 +498,80 @@ function xdy_isempty(obj) {
   return true
 }
 
-var obj = {"name":undefined,"age":[1,2,3]}
-var obj2 = {"addres":"handan","name":"xiaobai"}
-var arr = [1,2,3,3,3,4,5]
-function resizethrottleHandler() {
-  console.log("改变")
-}
+// var obj = {"name":undefined,"age":[1,2,3]}
+// var obj2 = {"addres":"handan","name":"xiaobai"}
+// var arr = [1,2,3,3,3,4,5]
+// function resizethrottleHandler() {
+//   console.log("改变")
+// }
 // var objs = {'name':'xingdongyu'}
 // var aaa = xdy_bind(xdy,objs)
 // window.onresize = xdy_throttle2(resizethrottleHandler,2000,true)
 // var aa = xdy_clone(obj)
-console.log("结果",xdy_isempty([1]))
+// console.log("结果",xdy_isempty([1]))
 // obj['age']=122
 // console.log("发大水",obj)
+
+//回炉
+function  firstxdy(arr,n) {
+   if(arr == null) {
+     return void 0
+   }
+   if(n ==null){
+     return arr[0]
+   }
+   return initialxdy(arr,n)
+} 
+function initialxdy(arr,n){
+   return Array.prototype.slice.call(arr,0,n)
+}
+function xdyisarray(obj) {
+   var length  = xdygetlength(obj)
+}
+function optimicallbackxdy(func,context) {
+   if(context === void 0) {
+     return func
+   }
+   return function(value, index, collection) {
+     return func.call(context, value, index, collection)
+   }  
+}
+function keyhasxdy(obj, key){
+  return obj !== null && hasOwnProperty.call(obj,key)
+}
+function keysxdy(obj) {
+  var arr = []
+  for(var key in obj) {
+     if(keyhasxdy(obj,key)) {
+       arr.push(key)
+     }
+  }
+  return arr
+}
+function eachxdy(obj,interatee,context) {
+  interatee = optimicallbackxdy(interatee,context)
+  if(xdy_array(obj)) {
+    for(var i=0; i<obj.length; i++) {
+      interatee(obj[i], i,obj)
+    }
+  } else {
+    var keys =keysxdy(obj)
+    for(var i=0; i<keys.length; i++) {
+      interatee(obj[keys[i]], keys[i], obj)
+    }
+  }
+  return obj
+}
+function mapxdy(obj, interatee, context) {
+  interatee = optimicallbackxdy(interatee,context)
+  var keys = !xdy_array(obj) && keysxdy(obj)
+  var length = (keys || obj).length
+  var res = new Array(length)
+  for(var i=0; i<length; i++) {
+     var curindex = keys? keys[i] : i
+     res[i] = interatee(obj[curindex],curindex, obj)
+  }
+  return res
+}
+
+// console.log("答案",firstxdy([1,2,3,4],3))
